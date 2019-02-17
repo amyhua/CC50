@@ -82,6 +82,7 @@ class NewsDetail extends Component {
 					<ScrollToTopOnMount key={0} />,
 					<CalDayTitleHeader
 						key={1}
+						maxLines={undefined}
 						startDateTime={publishedAt}
 						title={title}
 						tags={tags}

@@ -7,9 +7,10 @@ import { getShortIdentifierFromRefName } from '../../utils/parse-data';
 import throttle from '../../utils/throttle';
 import './SearchCards.css';
 
+import InfiniteScroll from 'react-infinite-scroller';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 
-class SearchCards extends Component {
+class SearchCardsWithInfiniteScroll extends Component {
 	// expects first page of data loaded in
 
 	// TODO: bidirectional infinite scroll. 1-direction only for now.
@@ -33,6 +34,12 @@ class SearchCards extends Component {
 
 	throttledLoadMore = throttle(this.loadMore.bind(this), 1000)
 
+	componentDidUpdate(prevProps) {
+		// TODO: bidirectional scroll
+		if (prevProps.data.length !== this.props.data.length) {
+			this.isLoadingMore = false;
+		}
+	}
 	render() {
 		const {
 			id,
@@ -41,12 +48,48 @@ class SearchCards extends Component {
 			customColWidth, viewMode,
 			onFilmmakerPage, isItemPageFilmCard } = this.props;
 		let customColSize = this.props.customColSize;
+		const isInfiniteScroll = false;
 		// SPEC: list view is ALWAYS 12-cols wide, no matter what
 		if (viewMode === 'list') customColSize = 12;
+		if (isInfiniteScroll && customColSize && customColWidth) {
+			return data && data.length ?
+			<InfiniteScroll
+				pageStart={0}
+				className="row SearchCardsWithInfiniteScroll"
+				loadMore={this.throttledLoadMore}
+				hasMore={
+					this.props.paginate &&
+					totalCount &&
+					data.length <= totalCount
+				}
+				useWindow={true}
+				threshold={500}
+				loader={<LoadingMessage className="paginate-loader" key={-1} />}
+			>
+				{
+					data.map((d, i) =>
+						<div key={i} className={'col-'+
+						(customColWidth === 'xs' ? '' : customColWidth + '-') +
+						customColSize}>
+							<SearchCard
+								mediaIsByCsid={mediaIsByCsid}
+								key={d.csid}
+								itemType={itemType || d.itemType}
+								onFilmmakerPage={onFilmmakerPage}
+								isItemPageFilmCard={isItemPageFilmCard}
+								viewMode={viewMode}
+								data={d}
+								{...d} />
+						</div>
+					)
+				}
+			</InfiniteScroll>
+			: null;
+		}
 
-		if (customColSize && customColWidth) {
+		if (!isInfiniteScroll && customColSize && customColWidth) {
 			return (
-				<Row className="SearchCards">
+				<Row className="SearchCardsWithInfiniteScroll">
 					{
 						data.map((d, i) =>
 							<div key={i} className={'col-'+
@@ -70,7 +113,7 @@ class SearchCards extends Component {
 
 		if (customColSize) {
 			return data && data.length ?
-			<Row className="SearchCards">
+			<Row className="SearchCardsWithInfiniteScroll">
 				{
 					data.map((d, i) =>
 						<Col key={i} xl={customColSize}>
@@ -89,7 +132,7 @@ class SearchCards extends Component {
 			: null;
 		}
 		return data && data.length ?
-			<div className="SearchCards">
+			<div className="SearchCardsWithInfiniteScroll">
 			{
 				data.map((d, i) =>
 					<SearchCard
@@ -108,8 +151,8 @@ class SearchCards extends Component {
 	}
 }
 
-SearchCards.propTypes = {
+SearchCardsWithInfiniteScroll.propTypes = {
 	data: PropTypes.array.isRequired
 }
 
-export default SearchCards;
+export default SearchCardsWithInfiniteScroll;

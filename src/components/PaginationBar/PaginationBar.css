@@ -1,14 +1,33 @@
+.PaginationBar {
+	/* same as CollectionSection */
+	min-width: 1300px;
+	padding: 0 70px;
+	display: flex;
+}
+
+.PaginationBar > * {
+	border-top: solid 1px #d8d8d8;
+}
+
+.PaginationBar > .PageNums {
+	display: block;
+	flex: 1;
+	text-align: center;
+}
 
 .PaginationBar, .btn-group {
 	display: flex;
 	padding-top: 0;
 }
 
+.PaginationBar .PaginationButton,
+.PaginationBar .PageNum {
+	font-size: 20px;
+}
+
 .PaginationButton {
 	padding: 30px 25px;
-	opacity: 0.5;
   font-family: Karla;
-  font-size: 20px;
   color: var(--darkest-gray);
   text-align: center;
   border-top: solid 1px;
@@ -21,18 +40,31 @@
 	border-top-color: var(--black);
 }
 
-.PaginationBar .page-num {
+.PaginationBar .PageNum {
+	display: inline-block;
 	text-align: center;
 	border-top: solid 1px;
-	border-top-color: #9b9b9b;
-	transition: border-top-color linear 0.15s;
 	padding: 30px 15px;
 }
 
-.PaginationBar .page-num:hover,
-.PaginationBar .page-num.active {
+/*  Effects  */
+.PaginationBar .PageNum,
+.PaginationBar .PaginationButton {
+	transition: border-top-color linear 0.15s, opacity linear 0.15s;
+	border-top-color: transparent;
+	margin-top: -1px;
+	z-index: 99;
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+.PaginationBar .PageNum.active,
+.PaginationBar .PaginationButton.active,
+.PaginationBar .PageNum:hover,
+.PaginationBar .PaginationButton:hover,
+.PaginationBar .PageNum:focus,
+.PaginationBar .PaginationButton:focus {
 	border-top-color: var(--black);
 	color: var(--black);
-	color: #231f20;
-	border-top-color: #231f20;
+	opacity: 1;
 }

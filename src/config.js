@@ -95,7 +95,7 @@ class QueryParams {
 		// expects object with key-value pairs matching collectionspace params
 		let path = '?';
 		this.keys.forEach((key, i) => {
-			path += path + '=' + this.params[key];
+			path += key + '=' + this.params[key];
 			if (i !== this.length - 1) {
 				// not the last one; keep appending
 				path += '&';
@@ -150,6 +150,7 @@ class Config {
 	}
 
 	fetchItems(...args) {
+		console.log('FETCH', config.username, config.password);
 		return wrappedFetch(encodeURI(this.getItemsUrl(...args)));
 	}
 

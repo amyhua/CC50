@@ -41,7 +41,6 @@ const CollectionSection = ({
 				searchData && searchData.length &&
 				<SearchCards
 					id={id}
-					paginate={paginate}
 					itemType={itemType}
 					customColSize={customColSize}
 					customColWidth={customColWidth}

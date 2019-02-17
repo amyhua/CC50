@@ -1,0 +1,32 @@
+.SearchCardsWithInfiniteScroll .SearchCard:nth-child(3n+3) {
+	margin-right: 0;
+}
+
+/* turn on horizontal scrolling
+
+.CollectionPage > .CollectionSection > .SearchCardsWithInfiniteScroll {
+    white-space: nowrap;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.CollectionPage > .CollectionSection > .SearchCardsWithInfiniteScroll .SearchCard {
+    white-space: normal;
+}
+
+*/
+
+/*  On CollectionItemPage  */
+
+.CollectionItemPage .SearchCard:nth-child(2n+2) {
+	margin-right: 0;
+}
+
+.CollectionItemPage .SearchCard.grid {
+	margin-right: 40px;
+	display: inline-block;
+}
+
+.CollectionPageItems .SearchCardsWithInfiniteScroll .SearchCard.grid {
+	margin-right: 0;
+}

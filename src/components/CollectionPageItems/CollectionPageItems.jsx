@@ -7,6 +7,7 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import LoadingMessage from '../LoadingMessage/LoadingMessage';
 import ScrollToTopOnMount from '../ScrollToTopOnMount/ScrollToTopOnMount';
 import CollectionSection from '../CollectionSection/CollectionSection';
+import PaginationBar from '../PaginationBar/PaginationBar';
 import { collectionItemsToSingularTitlecased } from '../../utils/parse-data';
 import { Helmet } from 'react-helmet';
 import throttle from '../../utils/throttle';
@@ -58,9 +59,10 @@ class CollectionPageItems extends Component {
 
 	render() {
 		const {
-			items, totalCount, pageCount,
+			items, totalCount, pageCount, itemsPageNum,
 			isLoading, error, collectionItems, viewMode
 		} = this.props;
+		const showPaginationBar = true;
 		return <CollectionContext.Consumer>
 			{
 				context => 
@@ -85,7 +87,14 @@ class CollectionPageItems extends Component {
 							viewMode={viewMode} 
 							searchData={items}
 							searchTotalCount={totalCount}
-							paginate={throttle(this.paginate, 1000)}
+						/>
+					}
+					{
+						showPaginationBar &&
+						<PaginationBar
+							totalCount={totalCount}
+							activePage={itemsPageNum}
+							paginate={() => throttle(this.paginate, 1000)}
 						/>
 					}
 				</div>

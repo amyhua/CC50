@@ -16,7 +16,7 @@ class ClampedDescription extends Component {
 					title={title}
 					className={[
 						'ClampedDescription',
-						this.props.maxLines === 1 ? 'single-line-ellipsed' : '',
+						maxLines === 1 ? 'single-line-ellipsed' : '',
 						className
 					].join(' ')}
 					clamp={maxLines}>
@@ -47,7 +47,8 @@ class ClampedDescription extends Component {
 	}
 
 	render() {
-		const { children, className, title, maxLines } = this.props;
+		const { children, className, title } = this.props;
+		const maxLines = this.props.hasOwnProperty('maxLines') ? this.props.maxLines : 2;
 		if (!isNaN(maxLines)) {
 			return <div title={title} className={className}>{ children }</div>;
 		}
