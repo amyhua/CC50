@@ -1,3 +1,5 @@
+## The active development of the Canyon Cinema project has been forked from this repo and moved to the Canyon Cinema Organization's [canyoncinema/cc50](https://github.com/canyoncinema/cc50) repository to enable further development. This repository is only kept for historical record.
+
 ## Development
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) and relies heavily on interactions with the museum curatorial software program, [CollectionSpace](https://wiki.collectionspace.org/).
